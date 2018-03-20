@@ -1,8 +1,12 @@
 import Html exposing (Html)
 
+import Uuid exposing (Uuid, uuidGenerator)
+import Random.Pcg exposing (initialSeed, step)
+
 import Model exposing (..)
 import View exposing (view)
 import Msg exposing (Msg(..))
+
 
 main =
   Html.program
@@ -12,11 +16,19 @@ main =
     , subscriptions = \_ -> Sub.none
     }
 
+uuid : Uuid
+uuid =
+  let
+    (uuid, _) = step uuidGenerator (initialSeed 0)
+  in
+    uuid
 
 -- UPDATE
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
-    _ ->
-      (model, Cmd.none)
+    AddTable name ->
+      ( { model | tables = (Table uuid name []) :: model.tables }
+      , Cmd.none
+      )

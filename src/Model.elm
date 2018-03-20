@@ -1,5 +1,7 @@
 module Model exposing (..)
 
+import Uuid exposing (Uuid)
+
 
 type alias Model =
   { name: String
@@ -7,12 +9,14 @@ type alias Model =
   }
 
 type alias Table =
-  { name: String
+  { id: Uuid
+  , name: String
   , columns: List Column
   }
 
 type alias Column =
-  { name: String
+  { id: Uuid
+  , name: String
   , datatype: ColumnType
   }
 
